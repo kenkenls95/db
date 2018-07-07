@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th7 05, 2018 lúc 04:26 AM
+-- Thời gian đã tạo: Th7 07, 2018 lúc 07:27 PM
 -- Phiên bản máy phục vụ: 10.1.31-MariaDB
 -- Phiên bản PHP: 7.2.4
 
@@ -366,7 +366,10 @@ CREATE TABLE `tbl_order` (
 
 INSERT INTO `tbl_order` (`id`, `userid`, `created_date`, `statusid`, `address`, `updated_date`, `userguild`) VALUES
 (1, '1', '2018-05-06', 1, 'abc', NULL, NULL),
-(2, '1', '2018-05-01', 2, 'abc', NULL, NULL);
+(2, '1', '2018-05-01', 2, 'abc', NULL, NULL),
+(4, '5', '2018-07-07', 3, NULL, NULL, 'f23f9523-d09b-4876-8c69-3f8b25f6d5ef'),
+(7, '1', '2018-07-07', 3, NULL, NULL, '81c26581-c4de-4ff7-b692-04a1c15ab5e0'),
+(8, NULL, '2018-07-07', 3, NULL, NULL, '7a6f4a52-c4c7-4fe8-b0d7-207cceebc03c');
 
 -- --------------------------------------------------------
 
@@ -391,10 +394,14 @@ CREATE TABLE `tbl_orderproduct` (
 INSERT INTO `tbl_orderproduct` (`id`, `productid`, `orderid`, `orderquantity`, `orderprice`, `created_date`, `updated_date`) VALUES
 (1, 3, 1, 5, '31000', '2018-05-06', NULL),
 (2, 4, 1, 3, '15000', '2018-05-06', NULL),
-(13, 1, 25, 5, '16000', '2018-07-02', NULL),
-(14, 3, 25, 4, '47000', '2018-07-02', NULL),
-(17, 4, 25, 2, '22000', '2018-07-03', NULL),
-(18, 5, 25, 1, '53000', '2018-07-03', NULL);
+(5, 3, 4, 1, '47000', '2018-07-07', NULL),
+(6, 4, 4, 1, '22000', '2018-07-07', NULL),
+(14, 4, 7, 2, '22000', '2018-07-07', NULL),
+(15, 4, 7, 2, '22000', '2018-07-07', NULL),
+(16, 4, 7, 2, '22000', '2018-07-07', NULL),
+(17, 5, 7, 2, '53000', '2018-07-07', NULL),
+(18, 5, 7, 2, '53000', '2018-07-07', NULL),
+(19, 1, 7, 4, '16000', '2018-07-07', NULL);
 
 -- --------------------------------------------------------
 
@@ -794,21 +801,22 @@ CREATE TABLE `tbl_user` (
   `updated_date` date DEFAULT NULL,
   `imageurl` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `address` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `gender` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+  `gender` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `phone` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `tbl_user`
 --
 
-INSERT INTO `tbl_user` (`id`, `username`, `fullname`, `email`, `passwordhashed`, `created_date`, `updated_date`, `imageurl`, `address`, `gender`) VALUES
-('1', 'abc', 'vi trung kiên', 'abc@gmail.com', '$2a$10$FLMAXz6nsk9iYr482EcXF.b4t2AD7vJ7HiwqYPRzftVdbKn.vENGK', '2018-04-29', '2018-06-12', '/link/1528285535-2f5c47448fdae0bd56323f206d9fc1f2_46-7735-1480135132gif.gif', 'asdasd', 'Male'),
-('11', 'Kiên Trung Vi', NULL, NULL, NULL, '2018-05-26', '2018-05-26', 'https://graph.facebook.com/v2.5/841550332695892/picture', NULL, 'Male'),
-('12', 'Nguyễn Phú Cường', NULL, NULL, NULL, '2018-06-11', NULL, 'https://graph.facebook.com/v2.5/801069846752939/picture', '', 'Male'),
-('14', 'quay', 'quay', 'quay@gmail.com', '$2a$10$BHeq.Uemm7UYEjXnM5HAV.4asegmfwo7d1e16V770ljfvQ5ZDCBNW', '2018-06-21', '2018-06-21', '/link/1529549179-download.jpg', 'abc', 'Male'),
-('2', 'admin', 'admin', 'admin@gmail.com', '$2a$10$G1y1rTDKEoba0v5cit3rq.IC349Ukt1qUTBH7Gdf0QfqeYYmpUVWS', '2018-04-29', '2018-06-11', '/link/1528177697-default-user.png', 'số nhà 33, ngõ 40/2, tạ quang bửu', 'Male'),
-('5', 'kiendz', 'kiendz', 'kiendz@gmail.com', '$2a$10$Sf6D9AwU2wzZFnceHJ8dQ.vYv0bWi.iBpHzEypk091LImougFRcdm', '2018-05-12', '2018-05-12', '/link/1528177697-default-user.png', NULL, 'Male'),
-('6', 'abcd', 'abcd', 'abcd@gmail.com', '$2a$10$EcRfz/CigWE/V2gR9pKDn.ztsaHEWXxOd/y6WinKE6wItFSgcCIOu', '2018-05-25', '2018-05-25', NULL, NULL, '0');
+INSERT INTO `tbl_user` (`id`, `username`, `fullname`, `email`, `passwordhashed`, `created_date`, `updated_date`, `imageurl`, `address`, `gender`, `phone`) VALUES
+('1', 'abc', 'vi trung kiên', 'abc@gmail.com', '$2a$10$FLMAXz6nsk9iYr482EcXF.b4t2AD7vJ7HiwqYPRzftVdbKn.vENGK', '2018-04-29', '2018-06-12', '/link/1528285535-2f5c47448fdae0bd56323f206d9fc1f2_46-7735-1480135132gif.gif', 'asdasd', 'Male', '213123123123'),
+('11', 'Kiên Trung Vi', NULL, NULL, NULL, '2018-05-26', '2018-05-26', 'https://graph.facebook.com/v2.5/841550332695892/picture', NULL, 'Male', NULL),
+('12', 'Nguyễn Phú Cường', NULL, NULL, NULL, '2018-06-11', NULL, 'https://graph.facebook.com/v2.5/801069846752939/picture', '', 'Male', NULL),
+('14', 'quay', 'quay', 'quay@gmail.com', '$2a$10$BHeq.Uemm7UYEjXnM5HAV.4asegmfwo7d1e16V770ljfvQ5ZDCBNW', '2018-06-21', '2018-06-21', '/link/1529549179-download.jpg', 'abc', 'Male', NULL),
+('2', 'admin', 'admin', 'admin@gmail.com', '$2a$10$G1y1rTDKEoba0v5cit3rq.IC349Ukt1qUTBH7Gdf0QfqeYYmpUVWS', '2018-04-29', '2018-06-11', '/link/1528177697-default-user.png', 'số nhà 33, ngõ 40/2, tạ quang bửu', 'Male', NULL),
+('5', 'kiendz', 'kiendz', 'kiendz@gmail.com', '$2a$10$Sf6D9AwU2wzZFnceHJ8dQ.vYv0bWi.iBpHzEypk091LImougFRcdm', '2018-05-12', '2018-05-12', '/link/1528177697-default-user.png', NULL, 'Male', NULL),
+('6', 'abcd', 'abcd', 'abcd@gmail.com', '$2a$10$EcRfz/CigWE/V2gR9pKDn.ztsaHEWXxOd/y6WinKE6wItFSgcCIOu', '2018-05-25', '2018-05-25', NULL, NULL, '0', NULL);
 
 -- --------------------------------------------------------
 
@@ -943,13 +951,13 @@ ALTER TABLE `tbl_led`
 -- AUTO_INCREMENT cho bảng `tbl_order`
 --
 ALTER TABLE `tbl_order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT cho bảng `tbl_orderproduct`
 --
 ALTER TABLE `tbl_orderproduct`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT cho bảng `tbl_product`
